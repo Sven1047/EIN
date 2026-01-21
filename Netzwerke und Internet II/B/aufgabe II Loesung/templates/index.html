@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zufalls-Witz Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="card">
+        <h1>Witze-Generator</h1>
+        
+        <div class="witz-text">
+            {% if witz %}
+                "{{ witz }}"
+            {% else %}
+                Bereit für einen Witz?
+            {% endif %}
+        </div>
+
+        <form method="POST">
+            <button type="submit">Einen Witz bitte!</button>
+        </form>
+    </div>
+
+</body>
+</html>

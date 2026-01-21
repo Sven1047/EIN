@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mein Chat</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <div class="chat-box">
+        <h2>Ergaenzungsfach-Therapeut 2026</h2>
+        <ul>
+            {% for zeile in verlauf %}
+                <li>{{ zeile }}</li>
+            {% endfor %}
+        </ul>
+        <form method="POST">
+            <input type="text" name="nachricht" placeholder="Schreibe etwas..." autofocus>
+            <button type="submit" name="action" value="senden">Senden</button>
+            <button type="submit" name="action" value="löschen" style="background-color: red;">Chatverlauf löschen</button>
+        </form>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Witze und Zeit Service</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="card">
+        <h1>Witze und Zeit Service</h1>
+        <div class="witz-display">
+            {% if witz %}
+                {{ witz }}
+            {% else %}
+                Bereit für einen Lacher oder die Uhrzeit?
+            {% endif %}
+        </div>
+
+        <form method="POST">
+            <button type="submit" name="action" value="witz">Gib mir einen Witz!</button>
+	    <br/>
+            <button type="submit" name="action" value="lehrerwitz" style="background-color: #FF0000;">Gib mir einen Lehrerwitz!</button>
+        <br/>
+            <button type="submit" name="action" value="zeit" style="background-color: #4CAF50;">Wie spät ist es?</button>
+        </form>
+    </div>
+</body>
+</html>

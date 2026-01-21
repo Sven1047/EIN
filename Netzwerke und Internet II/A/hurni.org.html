@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hurni's Bastelecke</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 40px 60px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 90%;
+            animation: fadeIn 1.5s ease-in-out;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        h1 {
+            color: #6a1b9a;
+            font-size: 3.5em;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            border-bottom: 3px solid #6a1b9a;
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-top: 20px;
+            color: #555;
+        }
+
+        /* Angepasste Styles fÃ¼r Kreise */
+        .character {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%; /* Macht das Element zu einem Kreis */
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: transform 0.1s linear;
+            z-index: 0;
+        }
+
+        /* Farben fÃ¼r die Kreise */
+        .yellow { background-color: #ffde00; }
+        .red { background-color: #ff0000; }
+        .blue { background-color: #00ffff; }
+        .pink { background-color: #ffb7b7; }
+
+        /* Animation fÃ¼r den Haupt-Container */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hurni's Bastelecke</h1>
+        <p>Spielwiese fuer diverse Projekte</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.body;
+            const characters = [];
+            const speed = 2;
+
+            // Erstellen und Initialisieren der Charakteren
+            const characterData = [
+                { color: 'yellow' },
+                { color: 'red' },
+                { color: 'blue' },
+                { color: 'pink' }
+            ];
+
+            characterData.forEach(data => {
+                const charElement = document.createElement('div');
+                charElement.className = `character ${data.color}`; // Zuweisung der Farbe
+                container.appendChild(charElement);
+
+                // Setze Startposition und Richtung zufÃ¤llig
+                const dx = (Math.random() - 0.5) > 0 ? 1 : -1;
+                const dy = (Math.random() - 0.5) > 0 ? 1 : -1;
+
+                characters.push({
+                    element: charElement,
+                    x: Math.random() * (window.innerWidth - 30),
+                    y: Math.random() * (window.innerHeight - 30),
+                    dx: dx,
+                    dy: dy
+                });
+            });
+
+            // Animations-Loop
+            function moveCharacters() {
+                characters.forEach(char => {
+                    // Neue Position berechnen
+                    let newX = char.x + char.dx * speed;
+                    let newY = char.y + char.dy * speed;
+
+                    // Prallt an RÃ¤ndern ab
+                    if (newX + 30 > window.innerWidth || newX < 0) {
+                        char.dx *= -1;
+                    }
+                    if (newY + 30 > window.innerHeight || newY < 0) {
+                        char.dy *= -1;
+                    }
+
+                    // Position aktualisieren
+                    char.x += char.dx * speed;
+                    char.y += char.dy * speed;
+
+                    // Position der Elemente im DOM aktualisieren
+                    char.element.style.transform = `translate(${char.x}px, ${char.y}px)`;
+                });
+
+                requestAnimationFrame(moveCharacters);
+            }
+
+            moveCharacters();
+        });
+    </script>
+</body>
+</html>

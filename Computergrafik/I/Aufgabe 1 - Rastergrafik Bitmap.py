@@ -1,0 +1,76 @@
+import sys
+import pkgutil
+import subprocess
+
+def main():
+    # das hier managt nur den import der bibliotheken
+    importiere_pakete() 
+    
+    W = [255, 255, 255]
+    S = [0, 0, 0]      
+
+    bitmap_daten_rgb = [
+        [S, S, W, W, S, S, W, W, S, S, W, W, S, S],
+        [S, S, W, W, S, S, W, W, S, S, W, W, S, S],
+        [W, W, S, S, W, W, S, S, W, W, S, S, W, W],
+        [W, W, S, S, W, W, S, S, W, W, S, S, W, W],
+        [S, S, W, W, S, S, W, W, S, S, W, W, S, S],
+        [S, S, W, W, W, W, W, W, S, S, W, W, S, S],
+        [S, S, W, W, W, W, S, S, W, W, W, W, S, S],
+        [S, S, W, W, W, W, S, S, W, W, W, W, S, S],
+        [S, S, W, W, W, W, W, W, W, W, W, W, S, S],
+        [S, S, W, S, W, W, W, W, W, W, S, W, S, S],
+        [S, S, W, W, S, S, S, S, S, S, W, W, S, S],
+        [S, S, W, W, W, W, W, W, W, W, W, W, S, S],
+        [S, S, S, S, S, S, S, S, S, S, S, S, S, S],
+        [S, S, S, S, S, S, S, S, S, S, S, S, S, S]
+    ]
+
+    """
+    Ändere das obige Bild ab - zeichne ein Schachbrettmuster (8x8 Pixel), alternierend Schwarz Weiss
+    a) von Hand
+    b) mit einer Schlaufe
+    c) Zeichne einen weissen Viertelkreis auf Schwarzem Grund - Nutze Pythagoras! Du kannst das Bild auch gerne grösser machen als 8x8 Pixel
+    """
+    for i in range(len(bitmap_daten_rgb)):
+        for j in range(len(bitmap_daten_rgb[i])):
+            if  == 0:
+                bitmap_daten_rgb[i][j] = W
+            else:
+                bitmap_daten_rgb[i][j]= S
+    
+    zeichne_die_bitmap(bitmap_daten_rgb)
+    
+    
+    
+    
+def zeichne_die_bitmap(bitmap_daten_rgb):
+    import numpy as np 
+    from PIL import Image 
+    np_array_rgb = np.array(bitmap_daten_rgb, dtype=np.uint8)
+    img = Image.fromarray(np_array_rgb, mode='RGB')
+
+    neue_groesse = (500, 500)
+    img_skaliert = img.resize(neue_groesse, resample=Image.NEAREST)
+
+    dateiname = "smiley_kuerzel_rgb.bmp"
+    img_skaliert.save(dateiname)
+    img_skaliert.show()
+
+
+def importiere_pakete():
+    pakete = ['numpy', 'PIL']
+    for paket_name in pakete:
+        if pkgutil.find_loader(paket_name):
+            continue
+        subprocess.check_call(
+            [sys.executable, "-m", "pip", "install", paket_name],
+            stdout=subprocess.PIPE, # Unterdrückt die detaillierte pip-Ausgabe
+            stderr=subprocess.PIPE # Leitet Fehler in eine Variable um
+        )
+        if pkgutil.find_loader(paket_name):
+            print(paket_name, "erfolgreich installiert und geladen.")
+        else:
+            raise ImportError("Installation von", paket_name, "schlug fehl, oder es kann nicht geladen werden.")
+main()
+
