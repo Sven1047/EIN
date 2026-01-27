@@ -11,7 +11,6 @@ def get_db_connection():
 @app.route('/', methods=['GET', 'POST'])
 def index():
     results = []
-    noresults = "false"
     if request.method == 'POST':
         # wir erhalten das Genre aus dem Formular
         genre = request.form.get('genre', '').strip()
