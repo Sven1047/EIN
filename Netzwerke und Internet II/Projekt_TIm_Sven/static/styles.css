@@ -17,6 +17,17 @@ body {
     flex-direction: column;
 }
 
+.title {
+    width: 100%;
+    max-width: 600px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
 h2 {
     margin-top: 0;
     text-align: center;
