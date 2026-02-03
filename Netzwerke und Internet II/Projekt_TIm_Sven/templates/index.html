@@ -6,14 +6,18 @@
 </head>
 <body>
 
-    <h2>Von welcher Person stammt das Zitat</h2>
-        {% for result in results %}
-            <h2>{{result['zitat']}}</h2>
-        {% endfor %}
+    <h2>Von welcher Person stammt das Zitat?</h2>
+        <form method="POST">
+            <button type="submit">Get Zitat</button>
+            {% for result in results %}
+                <h2>{{result['zitat']}}</h2>
+            {% endfor %}
+        </form>
+
 
     <div class="search-box">
-        <form method="POST">
-            <input type="text" name="genre" placeholder="Enter genre (e.g., Rock, Pop, Jazz)" autofocus>
+        <form method="SUBMIt">
+            <input type="text" name="answer" placeholder="Enter genre (e.g., Rock, Pop, Jazz)" autofocus>
             <button type="submit">Search</button>
         </form>
 
