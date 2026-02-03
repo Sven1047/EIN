@@ -1,37 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Music Genre Search</title>
+    <title>Zitate erraten</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
 
+    <h2>Von welcher Person stammt das Zitat</h2>
+        {% for result in results %}
+            <h2>{{result['zitat']}}</h2>
+        {% endfor %}
+
     <div class="search-box">
-        <h2>Search Music by Genre</h2>
         <form method="POST">
             <input type="text" name="genre" placeholder="Enter genre (e.g., Rock, Pop, Jazz)" autofocus>
             <button type="submit">Search</button>
         </form>
 
-        {% if results %}
-        <div class="results">
-            <h3>Results for "{{ request.form.genre }}":</h3>
-            <ul>
-                {% for result in results %}
-                <li>
-                    <strong>{{ result['artist'] }}</strong> - {{ result['title'] }}
-                    <a href="https://www.google.com/search?q={{(result['artist']+' '+result['title'])|urlencode}}">
-                        Find on Google
-                    </a>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-        {% else %}
-        <div class="results">
-            <h3> No Results found! </h3>
-        </div>
-        {% endif %}
     </div>
 
 </body>
