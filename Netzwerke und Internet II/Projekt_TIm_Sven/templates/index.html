@@ -18,17 +18,17 @@
              {% if results != [] %}
                 <button type="submit">Neues Zitat</button>
              {% endif %}
+
         </form>
-    </div>
-
-
-    <div class="search-box">
         <form method="SUBMIT">
             <input type="text" name="answer" placeholder="Enter your answer" autofocus>
             <button type="submit">Search</button>
         </form>
-
     </div>
+
+    {% for autor in autor %}
+        <h2>{{autor['autor']}}</h2>
+    {% endfor %}
 
 </body>
 </html>
