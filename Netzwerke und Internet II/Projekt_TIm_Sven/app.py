@@ -9,40 +9,33 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
-@app.route('/', methods=['GET', 'POST', 'SUBMIT'])
+@app.route('/', methods=['GET', 'POST'])
 def index():
     results = []
-    random = str(randint(1,1000))
+    random_int = str(randint(1,1000))
     correct = False
     autor = []
+    answer = ""
     if request.method == 'POST':
         conn = get_db_connection()
 
-        query  = "SElECT zitate.zitat FROM zitate WHERE zitate.id = '" + random + "' "
+        query  = "SElECT zitate.zitat FROM zitate WHERE zitate.id = '" + random_int + "' "
 
         results = conn.execute(query).fetchall()
-        conn.close()
 
-    elif request.method == 'SUBMIT':
-        answer = request.form.get('answer','').strip()
-
-        print(answer)
-
-        conn = get_db_connection()
-
-        query = "SELECT zitate.autor FROM zitate WHERE zitate.id = '" + random + "' "
+        query = "SELECT zitate.autor FROM zitate WHERE zitate.id = '" + random_int + "' "
 
         autor = conn.execute(query).fetchall()
+        print(str(autor[0]))
         conn.close()
 
-        print(autor)
+    if request.method == 'GET':
+        answer = request.args.get("answer")
 
         if answer == autor:
             correct = True
 
-    print(autor)
     return render_template('index.html', results=results, autor=autor)
 
 if __name__ == '__main__':
     app.run(debug=True, port=8086, use_reloader=False)
-

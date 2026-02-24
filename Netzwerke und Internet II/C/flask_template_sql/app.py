@@ -15,6 +15,7 @@ def index():
     if request.method == 'POST':
         # wir erhalten das Genre aus dem Formular
         genre = request.form.get('genre', '').strip()
+        print(genre )
         # prüfen, ob das Genre nicht leer ist
         if genre:
             # wir erhalten eine Verbindung zur Datenbank

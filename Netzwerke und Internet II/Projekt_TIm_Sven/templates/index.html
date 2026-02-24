@@ -8,21 +8,20 @@
 
     <div class="title">
         <h2>Von welcher Person stammt das Zitat?</h2>
-         <form method="POST">
-             {% if results == [] %}
-                <button type="submit">Get Zitat</button>
-             {% endif %}
+        <form method="GET">
+            <input type="text" name="answer" placeholder="Enter your answer" autofocus>
+            <button type="submit">Answer</button>
+        </form>
+        <form method="POST">
             {% for result in results %}
                 <h2>{{result['zitat']}}</h2>
             {% endfor %}
-             {% if results != [] %}
+            {% if results == [] %}
+                <button type="submit">Get Zitat</button>
+            {% elif results != [] %}
                 <button type="submit">Neues Zitat</button>
-             {% endif %}
+            {% endif %}
 
-        </form>
-        <form method="SUBMIT">
-            <input type="text" name="answer" placeholder="Enter your answer" autofocus>
-            <button type="submit">Search</button>
         </form>
     </div>
 
