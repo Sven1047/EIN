@@ -13,9 +13,16 @@
             <button type="submit">Answer</button>
         </form>
         <form method="POST">
-            {% for result in results %}
-                <h2>{{result['zitat']}}</h2>
-            {% endfor %}
+            {% if results != [] and answer == "" %}
+                {% for result in results %}
+                    <h2>{{result['zitat']}}</h2>
+                {% endfor %}
+            {% elif answer != '' and correct == True %}
+                <h2 style="color: green">Korrekt!</h2>
+            {% elif answer != '' and correct == False %}
+                <h2 style="color: red">Leider Falsch!</h2>
+            {% endif %}
+
             {% if results == [] %}
                 <button type="submit">Get Zitat</button>
             {% elif results != [] %}
@@ -23,11 +30,10 @@
             {% endif %}
 
         </form>
-    </div>
 
-    {% for autor in autor %}
-        <h2>{{autor['autor']}}</h2>
-    {% endfor %}
+
+
+    </div>
 
 </body>
 </html>

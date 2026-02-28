@@ -2,6 +2,9 @@ from flask import Flask, render_template, request
 import sqlite3
 from random import *
 
+correct_autor = ''
+results = []
+
 app = Flask(__name__)
 
 def get_db_connection():
@@ -11,12 +14,17 @@ def get_db_connection():
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    results = []
+    global correct_autor
+    global results
+
     random_int = str(randint(1,1000))
     correct = False
     autor = []
-    answer = ""
+    answer = ''
+
     if request.method == 'POST':
+        results = []
+
         conn = get_db_connection()
 
         query  = "SElECT zitate.zitat FROM zitate WHERE zitate.id = '" + random_int + "' "
@@ -26,16 +34,19 @@ def index():
         query = "SELECT zitate.autor FROM zitate WHERE zitate.id = '" + random_int + "' "
 
         autor = conn.execute(query).fetchall()
-        print(str(autor[0]))
+
+        for row in autor:
+            correct_autor = f'{row[0]}'
+
         conn.close()
 
     if request.method == 'GET':
-        answer = request.args.get("answer")
+        answer = str(request.args.get("answer"))
 
-        if answer == autor:
+        if answer.casefold() == correct_autor.casefold():
             correct = True
 
-    return render_template('index.html', results=results, autor=autor)
+    return render_template('index.html', results=results, autor=autor, correct=correct, answer=answer)
 
 if __name__ == '__main__':
     app.run(debug=True, port=8086, use_reloader=False)
